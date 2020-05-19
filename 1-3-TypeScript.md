@@ -97,9 +97,89 @@ console.log(obj['true])
 // 3. yarn flow init
 // 4. yarn flow
  ```
- ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200519220645853.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Zhbmd4dWFuMTUwOQ==,size_16,color_FFFFFF,t_70)
 
+ ```javascript
+// @flow
+function sum(a: number, b: number){
+  return a + b
+}
 
+sum(100, 100)
+sum(100, '100')
+```
+
+ 由于这些类型注解只是在开发阶段帮助我们更早的发现错误的工具，在生产环境下并不需要，所以就需要在生产环境打包的时候给他将这些类型注解删除掉。
+
+ **方法一**
+
+```javascript
+yarn add flow-remove-types --save-dev
+yarn flow-remove-types src -d dist
+```
+
+ **方法二**
+
+```javascript
+yarn add @babel/core @babel/cli @babel/preset-flow --dev
+```
+
+ 添加配置文件 `.babelrc` ，并添加以下配置
+
+```javascript
+{
+  "presets": ["@babel/preset-flow"]
+}
+```
+
+ 运行以下命令
+
+```javascript
+yarn babel src -d dist
+```
+
+ ### flow开发工具插件
+
+ ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200520054553341.png)
+
+ 安装之后在每次保存之后vscode就会自动检测代码是否符合类型注解。
+
+ 不同编辑器的插件，[看这儿](https://flow.org/en/docs/editors)
+
+ ### flow类型推断
+
+  flow除了我们自己添加的类型注解会检测之外，他也会自动的去进行检测函数调用的参数类型是否符合。
+
+ ### 类型注解
+
+```javascript
+ /**
+ * 类型注解
+ * 
+ * @flow
+ */ 
+
+  function square (n: number){
+      return n * n
+  }
+
+  let num: number = 100
+
+  function foo(): void{
+      console.log('hello flow')
+  }
+```
+
+ ### 原始类型
+ ```javascript
+// @flow
+// string boolean number null undefined symbol
+const a: number = 100 // Infinity // NaN 
+const b: string = 'aaa'
+const c: boolean = true // false
+const d: null = null
+const e: void = undefined
+const f: symbol = Symbol()
+```
 
 
 
