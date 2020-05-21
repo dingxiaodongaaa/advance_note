@@ -93,7 +93,7 @@ console.log(obj['true])
 
  ```javascript
 // 1. yarn init --yes
-// 2. yarn add flow-bin --dev-save
+// 2. yarn add flow-bin --dev
 // 3. yarn flow init
 // 4. yarn flow
  ```
@@ -170,16 +170,126 @@ yarn babel src -d dist
 ```
 
  ### 原始类型
+
  ```javascript
 // @flow
 // string boolean number null undefined symbol
 const a: number = 100 // Infinity // NaN 
+
 const b: string = 'aaa'
+
 const c: boolean = true // false
+
 const d: null = null
+
 const e: void = undefined
+
 const f: symbol = Symbol()
 ```
 
+ ### 数组类型
 
+```javascript
+// @flow
+// 数组类型
+const arr1: Array<number> = [1, 2, 3]
+
+const arr2: number[] = [1, 2, 3]
+
+// 元组
+const arr3: [number, boolean] = [100, true]
+// 一般在一个函数中同时返回多个返回值的时候就可以使用元组的注解方式
+```
+ ### 对象类型
+
+```javascript
+// @flow
+// 对象类型
+
+const obj1: { foo: string, bar: number } = { foo: 'aaa', bar: 100 }
+const obj2: { foo?: string, bar: number } = { bar: 200 }
+
+const obj3: { [string]: string } = {}
+obj3.key1 = 'aaa'
+obj3.key2 = 'bbb'
+```
+ ### 函数类型
+
+ ```javascript
+ function foo(callback: (string, number) => void){
+   callback('aaa', 100)
+ }
+ foo(function(str, n){
+   // str => string
+   // n => number
+ })
+ ```
+
+ ### 特殊类型
+
+```javascript
+// @flow
+// 特殊类型
+
+// 字面量类型
+const foo: 'foo' = 'foo'
+const type: 'success' | 'warning' | 'danger' = 'danger'
+
+// 联合类型
+const a: string | number = 'aaa'
+const b: string | number = 1
+
+// 使用type关键词给联合类型起一个别名
+type stringOrNumber = string | number
+const c: stringOrNumber = 'aaa'
+
+//maybe类型
+const d: ?number = undefined // null // number
+// maybe类型除了给变量添加了一个类型注解以外，该变量还可以是undefined或者null
+
+//Mixed Any
+function passMixed (value: mixed){
+
+}
+passMixed('string')
+passMixed(999)
+
+// ------------------------------
+function passAny (value: any){
+
+}
+passAny('string')
+passAny(999)
+```
+**Mixed 和 Any的区别**
+
+使用Mixed注解的变量是强类型，Any注解的变量是弱类型。
+
+Mixed类型其实就是所有类型的联合类型，但是该类型是不能进行隐式类型转换的，所以要想使用Mixed类型的变量，首先要先判断他的类型。
+
+Any则是弱类型，可以是任意类型，可以随意的进行自动类型转换。
+
+```javascript
+//Mixed Any
+function passMixed (value: mixed){
+  if(typeof value === 'string'){
+    value.substr(1)
+  }
+  if(typeof value === 'number){
+    value*value
+  }
+}
+passMixed('string')
+passMixed(999)
+```
+
+flow类型[文档](https://www.saltycrane.com/cheat-sheets/flow-type/latest/)，仅供查阅。
+
+### 运行环境API
+
+js脚本必须去运行在某些运行环境之下，比如说浏览器环境、node环境。这些运行环境一定会提供给我们一些API比如在浏览器环境种的操作DOM和BOM的API。我们在开发的过程中也肯定会用这些API，所以在flow种也对这些API做出了类型注解。
+
+```javascript
+const element: HTMLElement | null = document.getElementById('app')
+```
 
