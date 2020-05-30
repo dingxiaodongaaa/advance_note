@@ -30,7 +30,7 @@ obj.name = 'xiaodong'
 obj = null
 ```
 
-#### JavaScript的垃圾回收
+### JavaScript的垃圾回收
 
 - JavaScript中的内存管理是自动的
 - 对象不再被**引用**时是垃圾
@@ -38,8 +38,10 @@ obj = null
 
 垃圾回收就是找到垃圾，让JS引擎进行空间的释放和回收。
 
-#### JavaScript中的可达对象
+### JavaScript中的可达对象
 
 - 可以访问到的对象就是可达对象（引用、作用域链）
 - 可达的标准就是从根出发是否能够被找到
 - JavaScript中的根就可以理解为全局变量对象（也就是所谓的全局执行上下文）
+
+
