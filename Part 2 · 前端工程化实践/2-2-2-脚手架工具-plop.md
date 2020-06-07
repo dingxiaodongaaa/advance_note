@@ -66,3 +66,5 @@ yarn plop webpage
 - 在`plopfile.js`文件中定义脚手架任务
 - 编写用于生成特定类型文件的模板
 - 通过`plop`提供的CLI运行脚手架任务
+
+案例地址：https://github.com/dingxiaodongaaa/plop-hbs-demo
