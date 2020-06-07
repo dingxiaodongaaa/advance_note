@@ -236,3 +236,5 @@ Generator实际上就是一个npm的模块，发布一个Generator就是发布�
 ```
 yarn publish --registry=https://registry.yarnpkg.com
 ```
+
+一个自定义Genetor案例：https://github.com/dingxiaodongaaa/generator-sample
