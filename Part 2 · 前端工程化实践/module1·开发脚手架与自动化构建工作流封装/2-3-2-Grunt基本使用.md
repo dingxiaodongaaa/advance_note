@@ -128,4 +128,208 @@ module.exports = grunt => {
 
 ## Grunt 插件的使用
 
-插件机制才是 Grunt 的核心.
+插件机制才是 Grunt 的核心。
+
+```
+yarn add grunt-contrib-clean --dev
+```
+
+```js
+module.exports = grunt => {
+    // 配置任务子目标
+    grunt.initConfig({
+        // 删除temp文件夹下面的app.js
+        // clean: {
+        //     temp: "temp/app.js"
+        // }
+        // 删除temp文件夹下面的所有的 txt 文本
+        // clean: {
+        //     temp: "temp/*.txt"
+        // }
+        // 删除temp文件夹下面的所有文件以及所有子目录下面的所有文件
+        clean: {
+            temp: "temp/**"
+        }
+    })
+
+    // 加载插件任务
+    grunt.loadNpmTasks('grunt-contrib-clean')
+}
+```
+
+```
+yarn grunt clean
+```
+
+## Grunt 常用的插件
+
+### 1. sass
+
+```
+yarn add grunt-sass sass --dev
+```
+
+```js
+const sass = require("sass")
+
+module.exports = grunt => {
+    grunt.initConfig({
+        sass:{
+            options: {
+                sourceMap: true,
+                implementation: sass
+            },
+            main: {
+                files: {
+                    'dist/css/main.css': 'scss/main.scss'
+                }
+            }
+        }
+    })
+    grunt.loadNpmTasks("grunt-sass")
+}
+```
+
+```
+yarn grunt sass
+```
+
+以上只是 sass 插件的基础使用，更多内容查看文档
+
+### 2. load-grunt-tasks
+
+```
+yarn add load-grunt-tasks --dev
+```
+
+该插件可以帮助我们自动地加载 Grunt 插件的任务，具体使用请看下一个 babel 案例
+
+### 3. babel
+
+```
+yarn add grunt-babel @babel/core @babel/preset-env --dev
+```
+
+```js
+const loadGruntTasks = require("load-grunt-tasks") // 自动加载所有安装的 grunt 插件的的插件
+const sass = require("sass")
+
+module.exports = grunt => {
+    grunt.initConfig({
+        sass:{
+            options: {
+                sourceMap: true,
+                implementation: sass
+            },
+            main: {
+                files: {
+                    'dist/css/main.css': 'src/scss/main.scss'
+                }
+            }
+        },
+        babel: {
+            options:{
+                // 配置选项 将所有的ES新特性转换成ES5
+                presets: ['@babel/preset-env'],
+                sourceMap: true
+            },
+            main: {
+                files:{
+                    'dist/js/app.js': 'src/js/app.js'
+                }
+            }
+        }
+    })
+    // grunt.loadNpmTasks("grunt-sass")
+    loadGruntTasks(grunt) // 自动加载所有的 Grunt 插件中的任务
+}
+```
+
+这里为了展示 load-grunt-tasks 插件地使用，将babel和sass放到一起。
+
+### 4. grunt-contrib-watch
+
+一个常见地需求就是，当文件修改完了之后我们需要让其自动地编译
+
+```
+yarn add grunt-contrib-watch --dev
+```
+
+```js
+watch: {
+    js: {
+        files: ['src/js/*.js'],
+        tasks: ['babel']
+    },
+    css: {
+        files: ['src/scss/*.scss'],
+        tasks: ['sass']
+    }
+}
+```
+
+```
+yarn grunt watch
+```
+
+注意 grunt-contrib-watch 只是会监听对应文件的变化然后才会去执行相应的任务，初始化的时候，任务初始化执行的时候是不会自动执行对应任务的。
+
+为解决这个问题，可以自定义一个 default 任务，初始化的时候将需要初始化执行的任务先执行一边，最后在运行watch
+
+```js
+grunt.registerTask('default', ['babel', 'sass', 'watch'])
+```
+
+```
+yarn grunt
+```
+
+整个文件代码如下：
+
+```js
+const loadGruntTasks = require("load-grunt-tasks") // 自动加载所有安装的 grunt 插件的的插件
+const sass = require("sass")
+
+module.exports = grunt => {
+    grunt.initConfig({
+        sass:{
+            options: {
+                sourceMap: true,
+                implementation: sass
+            },
+            main: {
+                files: {
+                    'dist/css/main.css': 'src/scss/main.scss'
+                }
+            }
+        },
+        babel: {
+            options:{
+                // 配置选项 将所有的ES新特性转换成ES5
+                presets: ['@babel/preset-env'],
+                sourceMap: true
+            },
+            main: {
+                files:{
+                    'dist/js/app.js': 'src/js/app.js'
+                }
+            }
+        },
+        watch: {
+            js: {
+                files: ['src/js/*.js'],
+                tasks: ['babel']
+            },
+            css: {
+                files: ['src/scss/*.scss'],
+                tasks: ['sass']
+            }
+        }
+    })
+    // grunt.loadNpmTasks("grunt-sass")
+    loadGruntTasks(grunt) // 自动加载所有的 Grunt 插件中的任务
+    grunt.registerTask('default', ['sass', 'babel', 'watch'])
+}
+```
+
+demo地址：https://github.com/dingxiaodongaaa/grunt-demo
