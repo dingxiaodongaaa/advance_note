@@ -140,3 +140,4 @@ exports.stream_done = done => {
     // return readStream
 }
 ```
+demo 地址：https://github.com/dingxiaodongaaa/gulp-demo
