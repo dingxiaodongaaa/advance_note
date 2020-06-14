@@ -140,4 +140,28 @@ exports.stream_done = done => {
     // return readStream
 }
 ```
+
+## Gulp 工作过程核心工作原理
+
+读取流 => 转换流 => 写入流
+
+## Gulp 文件操作 API + 插件的使用
+
+gulp 中为我们提供了专门用于去创建读取流和写入流的API，相对于底层的 Node API，Gulp API更强大也更容易使用，至于负责文件加工的转换流绝大多数情况下都是使用插件来完成。
+
+在使用 Gulp 去创建构建任务的流程就是先通过 src 方法去创建一个读取流，然后在借助于插件提供的转换流来实现文件加工，最后通过 Gulp 提供的 dest 方法去创建一个写入流，从而写入到目标文件。
+
+```js
+const { src, dest } = require('gulp')
+const cleanCss = require('gulp-clean-css')
+const rename = require('gulp-rename')
+
+exports.default = () => {
+    return src('src/*.css')
+        .pipe(cleanCss())
+        .pipe(rename({ extname: '.min.css' }))
+        .pipe(dest('dist'))
+}
+```
+
 demo 地址：https://github.com/dingxiaodongaaa/gulp-demo
