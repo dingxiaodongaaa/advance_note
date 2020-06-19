@@ -231,7 +231,7 @@ Generator实际上就是一个npm的模块，发布一个Generator就是发布�
 
 一般发布的模块会将代码托管到一个public仓库里面
 
-在运行yarn publish的时候会报错，可能是因为使用的淘宝npm镜像，因为这个镜像是只读的，所以这里publish的时候需要知名一下镜像地址
+在运行yarn publish的时候会报错，可能是因为使用的淘宝npm镜像，因为这个镜像是只读的，所以这里publish的时候需要指明一下镜像地址
 
 ```
 yarn publish --registry=https://registry.yarnpkg.com
