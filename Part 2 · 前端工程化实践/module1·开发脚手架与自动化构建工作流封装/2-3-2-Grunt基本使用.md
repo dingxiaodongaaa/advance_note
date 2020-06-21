@@ -25,7 +25,7 @@ module.exports = grunt => {
     //     },1000)
     // })
 
-    // 异步任务需要 this.async() 返回一个done函数来声明任务的结束
+    // grunt 默认支持同步任务，异步任务需要 this.async() 返回一个done函数来声明任务的结束
     grunt.registerTask('task-async', function(){
         const done = this.async()
         setTimeout(() => {
@@ -38,7 +38,7 @@ module.exports = grunt => {
 
 ## Grunt 标记任务失败
 
-在函数体中使用 return false 来标记任务的失败任务的失败会导致后面的任务都不再执行
+在函数体中使用 return false 来标记任务的失败任务的失败，如果任务是在一个任务列表中则会导致后面的任务都不再执行
 
 ```js
 module.exports = grunt => {
@@ -115,6 +115,7 @@ module.exports = grunt => {
         },
     })
     grunt.registerMultiTask('build', function() {
+        console.log(this.options())
         console.log(`target: ${this.target}, data: ${this.data}`)
     })
 }

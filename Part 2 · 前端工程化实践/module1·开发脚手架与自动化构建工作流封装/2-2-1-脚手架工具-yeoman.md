@@ -83,7 +83,7 @@ yo webapp
 
 ## 自定义Generator
 
-基于Yeoman搭建自己的脚手架
+基于Yeoman搭建自己的脚手架（创建generator其实就是创建一个npm模块）
 
 ## Generator 基本结构
 
