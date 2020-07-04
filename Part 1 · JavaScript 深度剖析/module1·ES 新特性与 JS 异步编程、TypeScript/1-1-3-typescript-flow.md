@@ -1,4 +1,4 @@
-# TypeScript
+# TypeScript-flow
 
  解决js自有类型系统的不足，提高代码的可靠性。
 
