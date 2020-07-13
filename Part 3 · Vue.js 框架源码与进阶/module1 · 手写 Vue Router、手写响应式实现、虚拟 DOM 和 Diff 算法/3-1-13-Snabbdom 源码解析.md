@@ -28,7 +28,7 @@
 
 ## h() 函数
 
-在使用 Vue 的时候就使用过 h() 函数，哪个 h() 函数就是 snabbdom 中的 h，但是 Vue 中增强了 h ，实现了组件的机制，snabbdom 中的 h 是不支持组件的。h() 函数最早见于 hypescript ，使用 JavaScript 创建超文本。Snabbdom 中的 h() 函数是用来创建 VNode。
+在使用 Vue 的时候就使用过 h() 函数，这个 h() 函数就是 snabbdom 中的 h，但是 Vue 中增强了 h ，实现了组件的机制，snabbdom 中的 h 是不支持组件的。h() 函数最早见于 hypescript ，使用 JavaScript 创建超文本。Snabbdom 中的 h() 函数是用来创建 VNode。
 
 ### 函数重载
 
@@ -36,7 +36,7 @@
 
     - 参数个数或类型不同的函数
     - JavaScript 中没有重载的概念
-    - TypeScript 中由重载，不过重载的实现还是通过代码调整参数
+    - TypeScript 中有重载，不过重载的实现还是通过代码调整参数
 
 ```js
 function add (a, b) {
@@ -188,7 +188,7 @@ export function init(modules: Array<Partial<Module>>, domApi?: DOMAPI) {
 
   // init 内部返回 patch 函数，把 vnode 渲染成真实 dom ，并返回vnode
   // 高阶函数，返回一个函数
-  // 可以把调用内部函数是需要传递的所有的共同参数提取出来，在调用外部函数的时候，
+  // 可以把调用内部函数所需要传递的所有的共同参数提取出来，在调用外部函数的时候，
   // 将共同参数传入，使程序形成闭包，当我们在之后调用内部函数的时候，就只需要传递动态的参数。
   // 而且，这样的形式可以保证共同参数在内存中只保存一份
   return function patch(oldVnode: VNode | Element, vnode: VNode): VNode {
@@ -529,7 +529,7 @@ function updateChildren(parentElm: Node,
   let elmToMove: VNode;
   let before: any;
   
-  // 循环对比新界节点数组种的元素
+  // 循环对比新节点数组中的元素
   while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
     // 索引变化后，可能会把节点设置为空
     if (oldStartVnode == null) {
