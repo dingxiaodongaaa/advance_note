@@ -2,7 +2,7 @@
 
 ## 中科软外包，泰康人寿（vue）
 
-1. `watch` `computed`各自的特点，如何选择，举例说明。
+### 1. `watch` `computed`各自的特点，如何选择，举例说明。
 
 - watch
   - watch 一次只能监听一条数据

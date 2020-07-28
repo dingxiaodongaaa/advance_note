@@ -87,3 +87,13 @@ path.resolve('a', './', 'c') // '/home/user/a/c'
 
 - `path.join` 就是将多个参数字符串合并成一个路径字符串。
 - `path.resolve` 是以程序根目录作为起点，根据参数解析出一个绝对路径。
+
+### 判断一个对象是否是一个原始的 Object 对象
+
+```ts
+const _toString = Object.prototype.
+
+function isPlainObject (obj: any): boolean {
+  return _toString.call(obj) === '[object Object]'
+}
+```
