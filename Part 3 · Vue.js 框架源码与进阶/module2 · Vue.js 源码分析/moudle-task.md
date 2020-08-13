@@ -37,24 +37,24 @@ Vue 是通过数据劫持结合发布订阅模式实现的，在数据获取的�
 
 分析 Vue 的响应式原理就是分析 Observer 类的实现过程。 
 
-- 在 Observer 中会对传入的选项是一个数组还是对象进行分类讨论，并分别对对象和数组进行响应式处理。
+在 Observer 中会对传入的选项是一个数组还是对象进行分类讨论，并分别对对象和数组进行响应式处理。
 
-  - 如果传入的是一个对象
-    - 调用 this.walk 方法，循环遍历对象的每一个属性，通过 defineReactive 做响应式处理
-    - 在 defineReactive 中首先创建一个 dep 对象用于后续在 get 中进行依赖的收集以及 set 中发送通知。
-    - 然后通过 Object.defineProperty() 将对象的属性转化成 getter/setter
-    - 在 get 中调用 dep.depend 收集 watcher ，将 watcher 储存到 dep 的 subs 数组中，并返回对应值。
-    - 在 set 中设置新值，并调用 dep.notify 遍历 subs 数组，调用所有的 watcher 的 update 方法，派发更新。
-      - 如果 set 的新数据是一个对象，对这个新对象进行响应式处理。
+- 如果传入的是一个对象
+  - 调用 this.walk 方法，循环遍历对象的每一个属性，通过 defineReactive 做响应式处理
+  - 在 defineReactive 中首先创建一个 dep 对象用于后续在 get 中进行依赖的收集以及 set 中发送通知。
+  - 然后通过 Object.defineProperty() 将对象的属性转化成 getter/setter
+  - 在 get 中调用 dep.depend 收集 watcher ，将 watcher 储存到 dep 的 subs 数组中，并返回对应值。
+  - 在 set 中设置新值，并调用 dep.notify 遍历 subs 数组，调用所有的 watcher 的 update 方法，派发更新。
+    - 如果 set 的新数据是一个对象，对这个新对象进行响应式处理。
 
-  - 如果传入的是一个数组
-    - 由于数组是通过数组的原型方法来改变内容的，所以数组中对数据的监听是通过重写数组原型的方法来实现的。
-    - 通过对数组原型方法的重写，给每一个改变数组的原型方法做响应式处理。核心就是在拦截器（重新的原型方法）中调用了数组的 dep 对象的 dep.notify() 方法发送通知。
-    - 为了不污染全局 Array.prototype ,在 Observer 中只针对那些需要响应式的数组中使用 __proto__ 来覆盖原型方法。
-    - 由于浏览器对 __proto__ 属性的支持不同，分类讨论。
-      - 如果支持，直接使用 __proto__ 覆盖数组的原型方法。
-      - 如果不支持，通过循环，将所有的拦截器直接设置到数组对象上，以此来拦截数组的原型方法。
-    - 数组收集依赖的方式和对象是一样的，也是在 Object.defineProperty() 中的 。get 收集 watcher ，不同的是，由于数组发送通知的地方是在数组的拦截器中，所以收集的依赖是通过调用 dependArray 将 watcher 存储在数组的 observer 的 dep 对象上。
+- 如果传入的是一个数组
+  - 由于数组是通过数组的原型方法来改变内容的，所以数组中对数据的监听是通过重写数组原型的方法来实现的。
+  - 通过对数组原型方法的重写，给每一个改变数组的原型方法做响应式处理。核心就是在拦截器（重新的原型方法）中调用了数组的 dep 对象的 dep.notify() 方法发送通知。
+  - 为了不污染全局 Array.prototype ,在 Observer 中只针对那些需要响应式的数组中使用 __proto__ 来覆盖原型方法。
+  - 由于浏览器对 __proto__ 属性的支持不同，分类讨论。
+    - 如果支持，直接使用 __proto__ 覆盖数组的原型方法。
+    - 如果不支持，通过循环，将所有的拦截器直接设置到数组对象上，以此来拦截数组的原型方法。
+  - 数组收集依赖的方式和对象是一样的，也是在 Object.defineProperty() 中的 。get 收集 watcher ，不同的是，由于数组发送通知的地方是在数组的拦截器中，所以收集的依赖是通过调用 dependArray 将 watcher 存储在数组的 observer 的 dep 对象上。
 
 ### 请简述虚拟 DOM 中的 key 的作用和好处。
 
