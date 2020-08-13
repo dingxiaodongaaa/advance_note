@@ -4,7 +4,7 @@
 
 ### 请简述 Vue 首次渲染的过程。
 
-- Vue 初始化完成之后，通过 new Vue 创建实例的时候，在 Vue 的构造函数中会调用 this._init 这个方法创建实例，在 this._init 这个方法中最终会调用 vm.$mount 这个方法完成 DOM 的首次渲染。分析 Vue 首次渲染的过程就是分析 vm.$mount 的执行过程。
+- Vue 初始化完成之后，通过 new Vue 创建实例的时候，在 Vue 的构造函数中会调用 this._init 这个方法初始化实例，在 this._init 这个方法中最终会调用 vm.$mount 这个方法完成 DOM 的首次渲染。分析 Vue 首次渲染的过程就是分析 vm.$mount 的执行过程。
 
 1. 执行 entry-runtime-with-compiler.js 中给 $mount 添加的部分
 
