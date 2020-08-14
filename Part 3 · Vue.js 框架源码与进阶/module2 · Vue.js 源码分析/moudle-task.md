@@ -58,9 +58,24 @@ Vue 是通过数据劫持结合发布订阅模式实现的，在数据获取的�
 
 ### 3、请简述虚拟 DOM 中的 key 的作用和好处。
 
-作用：在调用 updateChildren() 使用 diff 算法对比新旧节点更新 DOM 的时候，需要从旧虚拟节点列表中，查找与新虚拟节点列表中相同的节点，进行对比更新，key 在判断节点是否相同的方法 sameVnode() 中，是优先级最高的判断依据。
+- 作用：在调用 updateChildren() 使用 diff 算法对比新旧节点更新 DOM 的时候，需要从旧虚拟节点列表中，查找与新虚拟节点列表中相同的节点，进行对比更新，key 在判断节点是否相同的方法 sameVnode() 中，是优先级最高的判断依据。
 
-好处：给元素设置 key 属性可以在虚拟 DOM 对比渲染的时候大大减少 DOM 操作，提高性能。
+- 好处：给元素设置 key 属性可以在虚拟 DOM 对比渲染的时候大大减少 DOM 操作，提高性能。
 
 ### 4、请简述 Vue 中模板编译的过程。
+
+- 模板编译的过程是从 compileToFunctions() 开始的。它会先从缓存中加载编译好的 render 函数 。
+
+- 如果没有，调用 compile() ，首先合并 options 选项，然后调用 baseCompile() 开始编译模板。
+
+- baseCompile() 中编译模板分为了三步：
+  - 调用 parse() 把 template 转换成抽象语法树(AST)
+  - 调用 optimize() 进行编译的优化。
+    - 它会对 AST 中的静态子树进行标记（只包含纯文本的节点除外）。
+    - patch() 阶段会跳过静态子树，提高性能。
+  - 调用 generate() 将 AST 转换成字符串形式的 js 代码。
+
+- 通过 compile() 获取到编译结果之后，继续在 compileToFunctions()中调用 createFunction() 通过 new Function(string) 将字符串形式的 js 代码转换成匿名函数。
+
+- compileToFunctions() 执行完毕获取到 render 和 statuxRenderFns 并将其挂载到 Vue 实例的 options 对应的属性中。
 
