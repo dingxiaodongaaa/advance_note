@@ -91,7 +91,7 @@ path.resolve('a', './', 'c') // '/home/user/a/c'
 ### 判断一个对象是否是一个原始的 Object 对象
 
 ```ts
-const _toString = Object.prototype.
+const _toString = Object.prototype.toString
 
 function isPlainObject (obj: any): boolean {
   return _toString.call(obj) === '[object Object]'
