@@ -29,19 +29,3 @@ function deepCopy (data) {
 // const cloneObj = deepCopy(originObj);
 // console.log(cloneObj); // {name: "axuebin", sayHello: ƒ}
 // console.log(originObj === cloneObj)
-
-const _toString = Object.prototype.toString
-
-function deepCopy (data) {
-  const resultData = Array.isArray(data) ? [] : {}
-  for(key in data) {
-    if(data.hasOwnProperty(key)) {
-      if(data[key] && typeof data[key] === 'object') {
-        resultData[key] = deepCopy(data[key])
-      } else {
-        resultData[key] = data[key]
-      }
-    }
-  }
-  return resultData
-}
