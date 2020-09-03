@@ -22,7 +22,7 @@ function foo () {
 foo() // 10
 ```
 
-使用 var 创建变量的时候（不在函数里），会吧创建的变量绑定到 window 下，所以此时 a 是 window 下的属性。函数 foo 也是 window 下的属性。
+使用 var 创建变量的时候（不在函数里），会把创建的变量绑定到 window 下，所以此时 a 是 window 下的属性。函数 foo 也是 window 下的属性。
 
 上面的代码就等价于：
 
