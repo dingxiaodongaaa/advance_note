@@ -1,8 +1,8 @@
 Function.prototype.myApply = function (context) {
-  var context = context || window
-  const args = arguments[1]
+  context = context || window
   const fn = Symbol()
   context[fn] = this
+  const args = arguments[1]
   let result
   if (args && args.length) {
     result = context[fn](...args)
@@ -24,18 +24,19 @@ Function.prototype.myCall = function (context) {
   } else {
     result = context[fn]()
   }
+  delete context[fn]
   return result
 }
 
 var obj = {
-  name: 'giao',
+  name: 'xiaodong',
   say: function () {
-    console.log(`hello ${this.name}`)
+    console.log(this.name)
   }
 }
 
-var rookie = {
-  name: 'xiaodong'
+var xiaoming = {
+  name: 'xiaoming'
 }
 
-obj.say.myCall(rookie)
+obj.say.myApply(xiaoming)
