@@ -12,8 +12,54 @@ function deepCopy (data) {
   return resultData
 }
 
-// const originObj = {a:'a',b:'b',c:[1,2,3],d:{dd:'dd'}};
-// const cloneObj = deepCopy(originObj);
+// function deep
+
+// function cloneLoop(x) {
+//   const root = {};
+
+//   // 栈
+//   const loopList = [
+//       {
+//           parent: root,
+//           key: undefined,
+//           data: x,
+//       }
+//   ];
+
+//   while(loopList.length) {
+//       // 深度优先
+//       const node = loopList.pop();
+//       const parent = node.parent;
+//       const key = node.key;
+//       const data = node.data;
+
+//       // 初始化赋值目标，key为undefined则拷贝到父元素，否则拷贝到子元素
+//       let res = parent;
+//       if (typeof key !== 'undefined') {
+//           res = parent[key] = {};
+//       }
+
+//       for(let k in data) {
+//           if (data.hasOwnProperty(k)) {
+//               if (typeof data[k] === 'object') {
+//                   // 下一次循环
+//                   loopList.push({
+//                       parent: res,
+//                       key: k,
+//                       data: data[k],
+//                   });
+//               } else {
+//                   res[k] = data[k];
+//               }
+//           }
+//       }
+//   }
+
+//   return root;
+// }
+
+const originObj = {a:'a',b:'b',c:[1,2,3],d:{dd:'dd'}};
+const cloneObj = cloneLoop(originObj);
 // console.log(cloneObj === originObj); // false
 // originObj.c[0] = 999
 // console.log(originObj.c[0])
@@ -30,29 +76,29 @@ function deepCopy (data) {
 // console.log(cloneObj); // {name: "axuebin", sayHello: ƒ}
 // console.log(originObj === cloneObj)
 
-async function async1 () {
-  console.log('async1 start')
-  await async2()
-  console.log('async1 end')
-}
+// async function async1 () {
+//   console.log('async1 start')
+//   await async2()
+//   console.log('async1 end')
+// }
 
-async function async2 () {
-  console.log('async2')
-}
+// async function async2 () {
+//   console.log('async2')
+// }
 
-console.log('script start')
+// console.log('script start')
 
-setTimeout(function () {
-  console.log('setTimeout')
-})
+// setTimeout(function () {
+//   console.log('setTimeout')
+// })
 
-async1()
+// async1()
 
-new Promise(function (resolve) {
-  console.log('promise1')
-  resolve()
-}).then(function () {
-  console.log('promise2')
-})
+// new Promise(function (resolve) {
+//   console.log('promise1')
+//   resolve()
+// }).then(function () {
+//   console.log('promise2')
+// })
 
-console.log('script end')
+// console.log('script end')
