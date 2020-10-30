@@ -6,7 +6,7 @@ gruntfile.js
 // Grunt 的入口文件
 // 用于定义一些需要 Grunt 自动执行的任务
 // 需要导出一个函数
-// 此函数接受一个 grunt 的形参，内不提供一些创建任务时用到的 API
+// 此函数接受一个 grunt 的形参，内部提供一些创建任务时用到的 API
 
 module.exports = grunt => {
     grunt.registerTask('foo', ()=> {

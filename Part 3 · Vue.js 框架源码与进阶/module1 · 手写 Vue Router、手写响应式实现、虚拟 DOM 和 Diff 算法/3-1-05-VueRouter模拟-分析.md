@@ -120,9 +120,9 @@ createRouteMap () {
 ```js
 initComponents (Vue) {
   const self = this
-  // 为了减少方法和外部的依赖，不适用全局的 _Vue , 选择将 Vue 构造函数作为参数传入的形式。
-  // 创建两个组件，分别时 router-link 和 router-view
-  // 注意，如果是运行是版本的 Vue ，这里的 template 属性是不支持的，可以通过后面的 vue.config.js 配置的方式去配置使用完整版的 vue 解决这个问题
+  // 为了减少方法和外部的依赖，不使用全局的 _Vue , 选择将 Vue 构造函数作为参数传入的形式。
+  // 创建两个组件，分别是 router-link 和 router-view
+  // 注意，如果是运行时版本的 Vue ，这里的 template 属性是不支持的，可以通过后面的 vue.config.js 配置的方式去配置使用完整版的 vue 解决这个问题
   // 但是这种配置方式会使得打包后的项目体积变大，显然不是我们想要的结果，所以这里需要我们自己实现一个 render 函数。
   Vue.component('router-link', {
     props: {
@@ -201,9 +201,9 @@ module.exports = {
 }
 ```
 
-runtimeCompiler 的作用就是在运行是将 templte 属性，编译成 render 函数。
+runtimeCompiler 的作用就是在运行时将 templte 属性，编译成 render 函数。
 
-但是问题来了，当我们平时使用单文件组件的时候，一直都在些 template 模板，而且一直都正常工作，这是因为在打包的过程中，把单文件的 template 编译成了 render 函数，这叫做预编译。
+但是问题来了，当我们平时使用单文件组件的时候，一直都在写 template 模板，而且一直都正常工作，这是因为在打包的过程中，把单文件的 template 编译成了 render 函数，这叫做预编译。
 
 
 ## 全部代码
