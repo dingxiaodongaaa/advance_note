@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 
- * @version: 
- * @Author: dingxd
- * @Date: 2020-05-21 22:26:49
- * @LastEditors: dingxd
- * @LastEditTime: 2020-05-21 23:22:58
---> 
 # TypeScript
 
 TypeScript就是JS的超集，在JS的基础上多了一些扩展特性。TypeScript最终会被编译为原始的JS。由于TS最终会被编译成js代码，所以TS本身对于ES6+的语法的兼容性都特别的好，且在任何一个JS运行环境种都能运行。
